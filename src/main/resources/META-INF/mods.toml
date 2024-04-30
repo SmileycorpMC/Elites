@@ -1,0 +1,20 @@
+modLoader="javafml" #mandatory
+loaderVersion="[34,)"
+license="GNU LESSER GENERAL PUBLIC LICENSE Version 2.1"
+
+[[mods]]
+modId="elites"
+version="1.1/0"
+displayName="The Hordes"
+displayURL=""
+updateJSONURL=""
+credits=""
+authors="Smileycorp"
+description=""
+
+[[dependencies.elites]]
+    modId="atlaslib"
+    mandatory=true
+    versionRange="[1.1.12,)"
+    ordering="NONE"
+    side="BOTH"
