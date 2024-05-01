@@ -3,14 +3,12 @@ package net.smileycorp.elites.common.affixes;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.block.Blocks;
 
 public class AffixBlazing extends Affix {
     
     @Override
     public void tick(LivingEntity entity) {
-        if (entity.tickCount % 10 == 0 && entity.level().getBlockState(entity.blockPosition()).isAir())
-            entity.level().setBlock(entity.blockPosition(), Blocks.FIRE.defaultBlockState(), 3);
+        //TODO: add fire trail
     }
     
     @Override

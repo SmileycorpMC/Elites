@@ -5,7 +5,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -45,6 +44,7 @@ public class ElitesEventHandler {
 	@SubscribeEvent
 	public void spawn(MobSpawnEvent.FinalizeSpawn event) {
 		if (!(event.getEntity() instanceof Enemy)) return;
+		//if (event.getEntity().getRandom().nextInt(10) > 0) return;
 		LazyOptional<AffixHolder> optional = event.getEntity().getCapability(AffixHolder.CAPABILITY);
 		if (!optional.isPresent()) return;
 		AffixHolder cap = optional.orElseGet(null);

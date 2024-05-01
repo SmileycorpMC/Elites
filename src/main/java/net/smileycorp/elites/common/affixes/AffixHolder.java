@@ -4,6 +4,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
@@ -14,6 +17,7 @@ import net.smileycorp.elites.common.network.PacketHandler;
 import net.smileycorp.elites.common.network.SyncAffixMessage;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public interface AffixHolder {
     
@@ -32,6 +36,9 @@ public interface AffixHolder {
     boolean hasAffix();
     
     class Impl implements AffixHolder {
+    
+        private static final UUID HEALTH_UUID = UUID.fromString("c917d628-e0e2-4b6b-88f5-98d372b14dba");
+        private static final UUID DAMAGE_UUID = UUID.fromString("8ac8e795-743f-4329-aec8-96f24b8366a1");
         
         private CompoundTag storage = new CompoundTag();
         private Optional<Affix> affix = Optional.empty();
@@ -48,17 +55,30 @@ public interface AffixHolder {
     
         @Override
         public void setAffix(Affix affix, LivingEntity entity) {
-            this.affix = affix == null ? Optional.empty() : Optional.of(affix);
-            if (entity == null) return;
-            if (entity.level().isClientSide()) return;
+            if (entity == null) {
+                this.affix = affix == null ? Optional.empty() : Optional.of(affix);
+                return;
+            }
+            if (this.affix.isPresent()) this.affix.get().reset(entity);
+            AttributeInstance health = entity.getAttribute(Attributes.MAX_HEALTH);
+            health.removeModifier(HEALTH_UUID);
+            health.addPermanentModifier(new AttributeModifier(HEALTH_UUID, "affix-modifier",
+                    affix.healthMult(), AttributeModifier.Operation.MULTIPLY_BASE));
+            AttributeInstance damage = entity.getAttribute(Attributes.ATTACK_DAMAGE);
+            damage.removeModifier(DAMAGE_UUID);
+            damage.addPermanentModifier(new AttributeModifier(DAMAGE_UUID, "affix-modifier",
+                    affix.damageMult(), AttributeModifier.Operation.MULTIPLY_BASE));
+            affix.applyModifiers(entity);
+            entity.heal(entity.getMaxHealth());
             PacketHandler.send(PacketDistributor.TRACKING_CHUNK.with(()-> entity.level().getChunkAt(entity.getOnPos())),
                     new SyncAffixMessage(affix, entity));
+            this.affix = affix == null ? Optional.empty() : Optional.of(affix);
         }
     
         @Override
         public CompoundTag save() {
             CompoundTag tag = new CompoundTag();
-            if (affix.isPresent()) tag.putString("affix", affix.get().toString());
+            if (affix.isPresent()) tag.putString("affix", affix.get().getRegistryName().toString());
             if (storage != null &! storage.isEmpty()) tag.put("storage", storage);
             return tag;
         }

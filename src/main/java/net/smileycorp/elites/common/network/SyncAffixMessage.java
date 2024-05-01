@@ -10,7 +10,6 @@ import net.smileycorp.atlas.api.network.AbstractMessage;
 import net.smileycorp.elites.client.ClientHandler;
 import net.smileycorp.elites.common.affixes.Affix;
 import net.smileycorp.elites.common.affixes.Affixes;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.Optional;
 

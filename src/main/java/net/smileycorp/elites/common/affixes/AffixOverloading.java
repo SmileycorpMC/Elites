@@ -14,7 +14,10 @@ public class AffixOverloading extends Affix {
         if (tag.contains("hurtTime") && tag.getInt("hurtTime") > 0) tag.putInt("hurtTime", tag.getInt("hurtTime") - 1);
         else {
             float shields = tag.getFloat("shields");
-            if (shields < entity.getMaxHealth()) tag.putFloat("shields", Math.min(shields + 1, entity.getMaxHealth()));
+            if (shields < entity.getMaxHealth() * 0.5f) {
+                tag.putFloat("shields", Math.min(shields + 1, entity.getMaxHealth() * 0.5f));
+                entity.heal(1);
+            }
         }
     }
     
@@ -30,9 +33,11 @@ public class AffixOverloading extends Affix {
         tag.putInt("hurtTime", 140);
         if (!tag.contains("shields")) return amount;
         float shields = tag.getFloat("shields");
-        shields = shields - amount;
-        tag.putFloat("shields", Math.max(0f, shields));
-        return shields < 0 ? -shields : 0;
+        if (shields > 0) {
+            shields = shields - amount;
+            tag.putFloat("shields", Math.max(0f, shields));
+        }
+        return amount;
     }
     
     @Override
@@ -42,7 +47,7 @@ public class AffixOverloading extends Affix {
     
     @Override
     public float healthMult() {
-        return 2;
+        return 4;
     }
     
     @Override

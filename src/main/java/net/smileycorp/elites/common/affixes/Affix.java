@@ -3,6 +3,7 @@ package net.smileycorp.elites.common.affixes;
 import com.google.common.collect.Maps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,13 +32,23 @@ public abstract class Affix {
         return Maps.newHashMap();
     }
     
+    public void applyModifiers(LivingEntity entity) {
+        for (Map.Entry<Attribute, AttributeModifier> entry : getAttributeModifiers().entrySet())
+            entity.getAttribute(entry.getKey()).addPermanentModifier(entry.getValue());
+    }
+    
+    public void reset(LivingEntity entity) {
+        for (Map.Entry<Attribute, AttributeModifier> entry : getAttributeModifiers().entrySet())
+            entity.getAttribute(entry.getKey()).removeModifier(entry.getValue().getId());
+    }
+    
     public abstract float damageMult();
     
     public abstract float healthMult();
     
     public abstract int getColour();
     
-    public Component getName() {
+    public MutableComponent getName() {
         return Component.translatable("affix." + name.getNamespace() + "." + name.getPath());
     }
     

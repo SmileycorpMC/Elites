@@ -3,7 +3,6 @@ package net.smileycorp.elites.mixin;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.smileycorp.elites.common.ElitesDamageSources;
 import net.smileycorp.elites.common.effects.ElitesEffects;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

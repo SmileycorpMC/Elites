@@ -3,7 +3,9 @@
 	"package": "net.smileycorp.elites.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"refmap": "elites.refmap.json",
-    "client": [],
+    "client": [
+		"MixinLivingEntityRenderer"
+	],
     "server": [],
 	"mixins": [
 		"MixinEntity",

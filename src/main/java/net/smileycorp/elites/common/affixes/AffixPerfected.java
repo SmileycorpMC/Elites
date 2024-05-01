@@ -22,8 +22,8 @@ public class AffixPerfected extends Affix {
     
     public AffixPerfected() {
         modifiers = Maps.newHashMap();
-        modifiers.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(SPEED_UUID, "perfected-modifier", 1.3, AttributeModifier.Operation.MULTIPLY_BASE));
-        modifiers.put(Attributes.MAX_HEALTH, new AttributeModifier(HEALTH_UUID, "perfected-modifier", 1.25, AttributeModifier.Operation.MULTIPLY_BASE));
+        modifiers.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(SPEED_UUID, "perfected-modifier", 1.3, AttributeModifier.Operation.MULTIPLY_TOTAL));
+        modifiers.put(Attributes.MAX_HEALTH, new AttributeModifier(HEALTH_UUID, "perfected-modifier", 1.25, AttributeModifier.Operation.MULTIPLY_TOTAL));
     }
     
     @Override
@@ -59,7 +59,7 @@ public class AffixPerfected extends Affix {
     
     @Override
     public float healthMult() {
-        return 2f;
+        return 2;
     }
     
     @Override

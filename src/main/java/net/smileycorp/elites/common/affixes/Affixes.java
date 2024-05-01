@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.smileycorp.elites.common.Constants;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class Affixes {
     public static final Affix MALACHITE = register(Constants.loc("malachite"), new AffixMalachite());
     public static final Affix CELESTINE = register(Constants.loc("celestine"), new AffixCelestine());
     public static final Affix PERFECTED = register(Constants.loc("perfected"), new AffixPerfected());
-    public static final Affix VOIDTOUCHED = register(Constants.loc("voidtouched"), new AffixMending());
+    public static final Affix VOIDTOUCHED = register(Constants.loc("voidtouched"), new AffixVoidtouched());
     
     public static Affix register(ResourceLocation name, Affix affix) {
         return AFFIXES.put(name, affix.setRegistryName(name));

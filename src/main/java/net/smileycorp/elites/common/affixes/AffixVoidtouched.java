@@ -45,7 +45,7 @@ public class AffixVoidtouched extends Affix {
     
     @Override
     public int getColour() {
-        return 0xB20CF4;
+        return 0x8D02F1;
     }
     
 }
