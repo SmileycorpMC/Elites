@@ -7,4 +7,6 @@ public interface ILivingEntityRenderer {
     
     void applyRotations(LivingEntity entity, PoseStack poseStack, float bob, float rotation, float partialTick);
     
+    float getEntityBob(LivingEntity entity, float partialTick);
+    
 }

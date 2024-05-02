@@ -12,8 +12,16 @@ public abstract class MixinLivingEntityRenderer implements ILivingEntityRenderer
     
     @Shadow public abstract void setupRotations(LivingEntity p_115317_, PoseStack p_115318_, float p_115319_, float p_115320_, float p_115321_);
     
+    @Shadow public abstract float getBob(LivingEntity p_115305_, float p_115306_);
+    
     @Override
     public void applyRotations(LivingEntity entity, PoseStack poseStack, float bob, float rotation, float partialTick) {
         setupRotations(entity, poseStack, bob, rotation, partialTick);
     }
+    
+    @Override
+    public float getEntityBob(LivingEntity entity, float partialTick) {
+        return getBob(entity, partialTick);
+    }
+    
 }

@@ -24,7 +24,8 @@ public class Affixes {
     public static final Affix VOIDTOUCHED = register(Constants.loc("voidtouched"), new AffixVoidtouched());
     
     public static Affix register(ResourceLocation name, Affix affix) {
-        return AFFIXES.put(name, affix.setRegistryName(name));
+        AFFIXES.put(name, affix.setRegistryName(name));
+        return affix;
     }
     
     public static Optional<Affix> getAffix(ResourceLocation affix) {

@@ -1,4 +1,4 @@
-package net.smileycorp.elites.client;
+package net.smileycorp.elites.client.affixes;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;

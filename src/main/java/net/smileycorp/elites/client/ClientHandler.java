@@ -7,17 +7,29 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.smileycorp.elites.client.affixes.AffixRenderManager;
+import net.smileycorp.elites.client.affixes.CelestineRenderer;
 import net.smileycorp.elites.common.Constants;
+import net.smileycorp.elites.common.ElitesEventHandler;
+import net.smileycorp.elites.common.ElitesLogger;
 import net.smileycorp.elites.common.affixes.Affix;
 import net.smileycorp.elites.common.affixes.AffixHolder;
+import net.smileycorp.elites.common.affixes.Affixes;
 
 import java.util.Optional;
 
 @Mod.EventBusSubscriber(modid = Constants.MODID, value = Dist.CLIENT)
 public class ClientHandler {
+    
+    public void init() {
+        MinecraftForge.EVENT_BUS.register(this);
+        ElitesLogger.logInfo("bingor");
+        AffixRenderManager.INSTANCE.registerRenderer(Affixes.CELESTINE, new CelestineRenderer());
+    }
     
     @SubscribeEvent
     public <T extends LivingEntity, M extends EntityModel<T>> void preRenderLiving(RenderLivingEvent.Pre<T, M> event) {
@@ -31,9 +43,10 @@ public class ClientHandler {
         RenderSystem.setShaderColor(r, g, b, 1);
     }
     
-    @SubscribeEvent
+    @SubscribeEvent(receiveCanceled = true)
     public <T extends LivingEntity, M extends EntityModel<T>> void postRenderLiving(RenderLivingEvent.Post<T, M> event) {
         RenderSystem.setShaderColor(1, 1, 1, 1);
+        if (event.isCanceled()) return;
         T entity = (T) event.getEntity();
         Optional<Affix> optional = Affix.getAffix(entity);
         if (!optional.isPresent()) return;

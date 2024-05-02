@@ -33,7 +33,7 @@ public class Elites {
 
 	@SubscribeEvent
 	public static void loadClient(FMLClientSetupEvent event) {
-		MinecraftForge.EVENT_BUS.register(new ClientHandler());
+		new ClientHandler().init();
 	}
 
 }
