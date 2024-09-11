@@ -76,6 +76,7 @@ public class ElitesEventHandler {
 	@SubscribeEvent
 	public void attackEntity(LivingHurtEvent event) {
 		LivingEntity entity = event.getEntity();
+		if (entity.hasEffect(ElitesEffects.CRIPPLE.get())) event.setAmount(event.getAmount() * 1.25f);
 		Optional<Affix> optional = Affix.getAffix(entity);
 		if (optional.isPresent()) event.setAmount(optional.get().hurt(entity, event.getSource(), event.getAmount()));
 		DamageSource source = event.getSource();

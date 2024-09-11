@@ -14,7 +14,7 @@ public class ElitesEffects {
     
     public static final RegistryObject<MobEffect> HEALING_DISABLED = EFFECTS.register("healing_disabled", EffectHealingDisabled::new);
     
-    public static final RegistryObject<MobEffect> CRIPPLE = EFFECTS.register("cripple", EffectFrozen::new);
+    public static final RegistryObject<MobEffect> CRIPPLE = EFFECTS.register("cripple", EffectCripple::new);
 
     public static final RegistryObject<MobEffect> REFLECT = EFFECTS.register("reflect", EffectFrozen::new);
     
