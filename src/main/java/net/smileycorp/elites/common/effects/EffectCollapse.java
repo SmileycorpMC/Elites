@@ -11,8 +11,7 @@ import org.apache.commons.compress.utils.Lists;
 import java.util.List;
 
 public class EffectCollapse extends MobEffect {
-    
-    
+
     protected EffectCollapse() {
         super(MobEffectCategory.HARMFUL, 0xFF4B4A);
     }

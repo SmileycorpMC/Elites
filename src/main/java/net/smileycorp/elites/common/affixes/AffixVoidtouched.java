@@ -2,10 +2,8 @@ package net.smileycorp.elites.common.affixes;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.smileycorp.elites.common.effects.EffectCollapse;
-import net.smileycorp.elites.common.effects.ElitesEffects;
 
 public class AffixVoidtouched extends Affix {
     

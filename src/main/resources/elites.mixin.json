@@ -9,7 +9,6 @@
     "server": [],
 	"mixins": [
 		"MixinEntity",
-      	"MixinMobEffectInstance",
 		"MixinSlime",
 		"MixinTameableAnimal"
     ],

@@ -2,6 +2,7 @@ package net.smileycorp.elites.common;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
@@ -17,8 +18,10 @@ import net.minecraftforge.network.NetworkDirection;
 import net.smileycorp.elites.common.affixes.Affix;
 import net.smileycorp.elites.common.affixes.AffixHolder;
 import net.smileycorp.elites.common.affixes.Affixes;
+import net.smileycorp.elites.common.effects.ElitesEffects;
 import net.smileycorp.elites.common.network.PacketHandler;
 import net.smileycorp.elites.common.network.SyncAffixMessage;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -87,6 +90,15 @@ public class ElitesEventHandler {
 		LivingEntity entity = event.getEntity();
 		Optional<Affix> optional = Affix.getAffix(entity);
 		if (optional.isPresent()) optional.get().die(entity);
+	}
+
+	@SubscribeEvent
+	public void tick(MobEffectEvent.Expired event) {
+		@Nullable MobEffectInstance effect = event.getEffectInstance();
+		if (effect.getEffect() == ElitesEffects.COLLAPSE.get()) {
+			LivingEntity entity = event.getEntity();
+			entity.hurt(ElitesDamageSources.collapse(entity), effect.getAmplifier());
+		}
 	}
 
 }
