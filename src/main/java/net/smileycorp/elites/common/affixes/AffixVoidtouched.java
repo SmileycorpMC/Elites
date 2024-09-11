@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.smileycorp.elites.common.effects.EffectCollapse;
 import net.smileycorp.elites.common.effects.ElitesEffects;
 
 public class AffixVoidtouched extends Affix {
@@ -18,7 +19,7 @@ public class AffixVoidtouched extends Affix {
     
     @Override
     public void dealDamage(LivingEntity entity, LivingEntity target, float amount) {
-        target.addEffect(new MobEffectInstance(ElitesEffects.CRIPPLE.get(), 30));
+        EffectCollapse.apply(entity, amount);
     }
     
     @Override
