@@ -14,7 +14,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.smileycorp.elites.client.affixes.AffixRenderManager;
 import net.smileycorp.elites.client.affixes.CelestineRenderer;
 import net.smileycorp.elites.common.Constants;
-import net.smileycorp.elites.common.ElitesEventHandler;
 import net.smileycorp.elites.common.ElitesLogger;
 import net.smileycorp.elites.common.affixes.Affix;
 import net.smileycorp.elites.common.affixes.AffixHolder;

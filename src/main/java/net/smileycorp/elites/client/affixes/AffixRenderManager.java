@@ -2,18 +2,15 @@ package net.smileycorp.elites.client.affixes;
 
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.smileycorp.elites.common.Constants;
-import net.smileycorp.elites.common.Elites;
 import net.smileycorp.elites.common.ElitesLogger;
 import net.smileycorp.elites.common.accessors.ILivingEntityRenderer;
 import net.smileycorp.elites.common.affixes.Affix;

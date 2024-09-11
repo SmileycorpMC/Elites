@@ -1,6 +1,5 @@
 package net.smileycorp.elites.client.affixes;
 
-import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
@@ -8,18 +7,15 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.textures.UnitTextureAtlasSprite;
 import net.smileycorp.atlas.api.client.RenderingUtils;
-import net.smileycorp.atlas.api.util.DirectionUtils;
 import net.smileycorp.elites.common.ElitesLogger;
 import org.joml.Matrix4f;
 
 import java.awt.*;
-import java.util.List;
 
 public class CelestineRenderer implements AffixRenderer{
     
