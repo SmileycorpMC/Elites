@@ -93,12 +93,18 @@ public class ElitesEventHandler {
 	}
 
 	@SubscribeEvent
-	public void tick(MobEffectEvent.Expired event) {
+	public void effectExpired(MobEffectEvent.Expired event) {
 		@Nullable MobEffectInstance effect = event.getEffectInstance();
 		if (effect.getEffect() == ElitesEffects.COLLAPSE.get()) {
 			LivingEntity entity = event.getEntity();
 			entity.hurt(ElitesDamageSources.collapse(entity), effect.getAmplifier());
 		}
+	}
+
+	@SubscribeEvent
+	public void heal(LivingHealEvent event) {
+		LivingEntity entity = event.getEntity();
+		if (entity.hasEffect(ElitesEffects.HEALING_DISABLED.get())) event.setCanceled(true);
 	}
 
 }

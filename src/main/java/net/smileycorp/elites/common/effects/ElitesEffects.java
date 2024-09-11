@@ -12,7 +12,7 @@ public class ElitesEffects {
     
     public static final RegistryObject<MobEffect> FROZEN = EFFECTS.register("frozen", EffectFrozen::new);
     
-    public static final RegistryObject<MobEffect> HEALING_DISABLED = EFFECTS.register("healing_disabled", EffectFrozen::new);
+    public static final RegistryObject<MobEffect> HEALING_DISABLED = EFFECTS.register("healing_disabled", EffectHealingDisabled::new);
     
     public static final RegistryObject<MobEffect> CRIPPLE = EFFECTS.register("cripple", EffectFrozen::new);
 
