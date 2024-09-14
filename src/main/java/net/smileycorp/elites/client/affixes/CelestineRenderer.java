@@ -1,12 +1,13 @@
 package net.smileycorp.elites.client.affixes;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
@@ -20,8 +21,38 @@ import java.awt.*;
 public class CelestineRenderer implements AffixRenderer{
     
     @Override
-    public <T extends LivingEntity, M extends EntityModel<T>> void render(T entity, M model, PoseStack poseStack, MultiBufferSource buffers, int packedLight, float partialTick) {
-        RenderingUtils.drawSphere(buffers.getBuffer(RenderType.entityGlint()), poseStack, entity.position().subtract(Minecraft.getInstance().cameraEntity.position()), 30, new Color(87, 177, 152, 100), UnitTextureAtlasSprite.INSTANCE);
+    public <T extends LivingEntity, M extends EntityModel<T>> void render(T entity, M model, EntityRenderer<T> renderer, PoseStack poseStack, MultiBufferSource buffers, int packedLight, float partialTick) {
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferbuilder = tesselator.getBuilder();
+        Minecraft mc = Minecraft.getInstance();
+        RenderSystem.enableBlend();
+        RenderSystem.enableDepthTest();
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.depthMask(Minecraft.useShaderTransparency());
+        PoseStack posestack = RenderSystem.getModelViewStack();
+        posestack.pushPose();
+        PoseStack.Pose pos = posestack.last();
+        RenderSystem.applyModelViewMatrix();
+        RenderSystem.polygonOffset(-3.0F, -3.0F);
+        RenderSystem.enablePolygonOffset();
+        RenderSystem.disableCull();
+        Vec3 camera = mc.gameRenderer.getMainCamera().getPosition();
+        Vec3 vec3 = renderer.getRenderOffset(entity, partialTick);
+        double x = Mth.lerp(partialTick, entity.xOld, entity.getX()) + vec3.x();
+        double y = Mth.lerp(partialTick, entity.yOld, entity.getY()) + vec3.y();
+        double z = Mth.lerp(partialTick, entity.zOld, entity.getZ()) + vec3.z();
+        //poseStack.translate(d2, d3, d0);
+        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        RenderingUtils.drawSphere(bufferbuilder, poseStack, new Vec3(x-camera.x, y-camera.y, z-camera.z), 30, new Color(87, 177, 152, 25), UnitTextureAtlasSprite.INSTANCE);
+        BufferUploader.drawWithShader(bufferbuilder.end());
+        RenderSystem.enableCull();
+        RenderSystem.polygonOffset(0.0F, 0.0F);
+        RenderSystem.disablePolygonOffset();
+        RenderSystem.disableBlend();
+        RenderSystem.defaultBlendFunc();
+        posestack.popPose();
+        RenderSystem.applyModelViewMatrix();
+        RenderSystem.depthMask(true);
     }
     
     public static void drawSphere(PoseStack poseStack, Vec3 center, float radius, Color color) {

@@ -25,8 +25,6 @@ public class AffixRenderManager {
     private final Map<Affix, AffixRenderer> renderers = Maps.newHashMap();
     
     public <T extends LivingEntity, M extends EntityModel<T>> void render(Affix affix, T entity, LivingEntityRenderer<T, M> renderer, PoseStack poseStack, MultiBufferSource buffers, int packedLight, float partialTick) {
-        if (renderers.containsKey(affix)) renderers.get(affix).render(entity, renderer.getModel(), poseStack, buffers, packedLight, partialTick);
-        ElitesLogger.logInfo(renderers);
         Minecraft minecraft = Minecraft.getInstance();
         //if (entity.isInvisibleTo(minecraft.player)) return;
         //M model = ;
@@ -37,6 +35,7 @@ public class AffixRenderManager {
         poseStack.translate(0.0F, -0.45F, 0.0F);
         poseStack.rotateAround(Axis.ZP.rotationDegrees(180), 0, 1, 0);
         poseStack.scale(1.1f, 1.1f, 1.1f);
+        if (renderers.containsKey(affix)) renderers.get(affix).render(entity, renderer.getModel(), renderer, poseStack, buffers, packedLight, partialTick);
         //model.renderToBuffer(poseStack, vertexconsumer, packedLight, 0, (float)colour.getRed() / 255f, (float)colour.getGreen() / 255f, (float)colour.getBlue() / 255f, 0.9f);
         poseStack.popPose();
     }
