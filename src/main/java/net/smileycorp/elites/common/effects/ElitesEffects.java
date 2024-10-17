@@ -16,7 +16,7 @@ public class ElitesEffects {
     
     public static final RegistryObject<MobEffect> CRIPPLE = EFFECTS.register("cripple", EffectCripple::new);
 
-    public static final RegistryObject<MobEffect> REFLECT = EFFECTS.register("reflect", EffectFrozen::new);
+    public static final RegistryObject<MobEffect> TWISTED_CORRUPTION = EFFECTS.register("twisted_corruption", EffectTwistedCorruption::new);
     
     public static final RegistryObject<MobEffect> COLLAPSE = EFFECTS.register("collapse", EffectCollapse::new);
     

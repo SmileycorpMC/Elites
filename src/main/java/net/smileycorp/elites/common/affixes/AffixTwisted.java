@@ -12,11 +12,11 @@ public class AffixTwisted extends Affix {
 
     @Override
     public void tick(LivingEntity entity) {
-        if (entity.tickCount % 10 != 0) return;
+        if (entity.tickCount % 20 != 0) return;
         Vec3 pos = entity.position();
         AABB aabb = new AABB(pos.add(30, 30, 30), pos.add(-30, -30, -30));
         entity.level().getEntitiesOfClass(LivingEntity.class, aabb, e-> canBuff(entity, e)).forEach(e ->
-                e.addEffect(new MobEffectInstance(ElitesEffects.REFLECT.get(), 20, 0, true, true), entity));
+                e.addEffect(new MobEffectInstance(ElitesEffects.TWISTED_CORRUPTION.get(), 40, 0, true, true), entity));
     }
 
     private boolean canBuff(LivingEntity entity, LivingEntity target) {

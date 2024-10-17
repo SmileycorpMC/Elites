@@ -77,6 +77,14 @@ public class ElitesEventHandler {
 	public void attackEntity(LivingHurtEvent event) {
 		LivingEntity entity = event.getEntity();
 		if (entity.hasEffect(ElitesEffects.CRIPPLE.get())) event.setAmount(event.getAmount() * 1.25f);
+		if (entity.hasEffect(ElitesEffects.TWISTED_CORRUPTION.get())) {
+			DamageSource source = event.getSource();
+			if (!source.is(ElitesDamageSources.TWISTED) && source.getEntity() instanceof LivingEntity) {
+				LivingEntity attacker = (LivingEntity) source.getEntity();
+				attacker.hurt(ElitesDamageSources.twisted(attacker, entity),
+						attacker.getMaxHealth() * 0.025f);
+			}
+		}
 		Optional<Affix> optional = Affix.getAffix(entity);
 		if (optional.isPresent()) event.setAmount(optional.get().hurt(entity, event.getSource(), event.getAmount()));
 		DamageSource source = event.getSource();
